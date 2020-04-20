@@ -1,0 +1,10 @@
+eclipse.preferences.version=1
+encoding//src/GUI.java=UTF-8
+encoding//src/MAIN.java=UTF-8
+encoding//src/automatons/Automaton.java=UTF-8
+encoding//src/automatons/DFA.java=UTF-8
+encoding//src/automatons/NFA.java=UTF-8
+encoding//src/automatons/PDA.java=UTF-8
+encoding//src/automatons/State.java=UTF-8
+encoding//src/automatons/TM.java=UTF-8
+encoding//src/parser/Parser.java=UTF-8
