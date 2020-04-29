@@ -108,6 +108,6 @@ public class Tokenizer
 	
 	private boolean isIDchar(char id)
 	{
-		return Character.isDigit(id) || Character.isLowerCase(id) || Character.isUpperCase(id)|| id == '_';
+		return Character.isDigit(id) || isDelimiter(id) == false;
 	}
 }

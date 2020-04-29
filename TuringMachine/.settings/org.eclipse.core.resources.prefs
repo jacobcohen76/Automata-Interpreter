@@ -1,6 +1,7 @@
 eclipse.preferences.version=1
 encoding//src/GUI.java=UTF-8
 encoding//src/MAIN.java=UTF-8
+encoding//src/TransitionTable.java=UTF-8
 encoding//src/automatons/Automaton.java=UTF-8
 encoding//src/automatons/DFA.java=UTF-8
 encoding//src/automatons/NFA.java=UTF-8

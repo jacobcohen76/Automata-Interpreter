@@ -6,13 +6,13 @@ import java.util.Set;
 
 public class TM extends Automaton
 {
-	private static final State REJECT = null;
+	public static final State REJECT = null;
 	
 	public Set<Character> Γ;
 	public Character B;
 	public Tape tape;
 	
-	private HashMap<State, HashMap<Character, TMTransition>> transitionMap;
+	public HashMap<State, HashMap<Character, TMTransition>> transitionMap;
 	
 	public TM(Set<State> Q, Set<Character> Σ, Set<Character> Γ, LinkedList<Pair<Pair<State, Character>, TMTransition>> transitions, State q, Character B, Set<State> F)
 	{
@@ -66,6 +66,24 @@ public class TM extends Automaton
 			tape.moveRight();
 		return transitionInfo.to;
 	}
+	
+	public State δ(State s, Tape t)
+	{
+		Character c = t.read();
+		TMTransition transitionInfo = transitionMap.get(s).get(c);
+		
+		if(	transitionInfo == null ||
+			transitionInfo.shiftType == ShiftType.HALT ||
+			transitionInfo.shiftType == null)
+			return REJECT;
+		
+		t.write(transitionInfo.write);
+		if(transitionInfo.shiftType == ShiftType.LEFT)
+			t.moveLeft();
+		else if(transitionInfo.shiftType == ShiftType.RIGHT)
+			t.moveRight();
+		return transitionInfo.to;
+	}
 
 	@Override
 	public boolean test(String input)
@@ -73,11 +91,7 @@ public class TM extends Automaton
 		tape.load(input);
 		State current = q;
 		while(F.contains(current) == false && current != REJECT)
-		{
-//			System.out.println(current + "\n" + tape);
 			current = δ(current, tape.read());
-		}
 		return F.contains(current);
 	}
-
 }

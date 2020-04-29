@@ -120,6 +120,66 @@ public class Tape
 		return size;
 	}
 	
+	public String getLHS()
+	{
+		String LHS = "";
+		Node itr = head.next;
+		while(itr != current)
+		{
+			LHS += itr.data;
+			itr = itr.next;
+		}
+		return LHS;
+	}
+	
+	public String getRHS()
+	{
+		String RHS = "";
+		Node itr = current.next;
+		while(itr != tail)
+		{
+			RHS += itr.data;
+			itr = itr.next;
+		}
+		return RHS;
+	}
+	
+	public String getLHS(int length)
+	{
+		String LHS = getLHS();
+		if(length > 0)
+		{
+			if(LHS.length() > length)
+			{
+				LHS = LHS.substring(LHS.length() - length, LHS.length());
+			}
+			else if(LHS.length() < length)
+			{
+				for(int i = 0; i < (length - LHS.length()); i++)
+					LHS = B + LHS;
+			}
+		}
+		return LHS;
+	}
+	
+	public String getRHS(int length)
+	{
+		String RHS = getRHS();
+		if(length > 0)
+		{
+			if(RHS.length() > length)
+			{
+				RHS = RHS.substring(0, length);
+			}
+			else if(RHS.length() < length)
+			{
+				for(int i = 0; i < (length - RHS.length()); i++)
+					RHS = RHS + B;
+			}
+		}
+		return RHS;
+	}
+	
 	public String toString()
 	{
 		String str1 = "";

@@ -1,6 +1,6 @@
 package automatons;
 
-public class State
+public class State implements Comparable<State>
 {
 	private String id;
 	
@@ -19,6 +19,11 @@ public class State
 		return	this == obj ||
 				obj instanceof State &&
 				id.compareTo(((State) obj).id) == 0;
+	}
+	
+	public int compareTo(State o)
+	{
+		return id.compareTo(o.id);
 	}
 	
 	public String toString()

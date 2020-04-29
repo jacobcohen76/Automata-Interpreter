@@ -1,9 +1,15 @@
+import java.awt.Dimension;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.LinkedList;
 
+import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.text.Document;
 
 import automatons.Automaton;
+import automatons.TM;
+import automatons.Tape;
 import parser.Parser;
 
 /*
@@ -340,22 +346,106 @@ public class GUI extends javax.swing.JFrame {
     	pdaMode.setSelected(true);
     	setTitle("Automaton Compiler, Mode = PDA");
     }
+    
+    private String input;
+    private class RunThread extends Thread
+    {
+    	private Automaton automaton;
+    	
+    	public RunThread(Automaton automaton)
+    	{
+    		this.automaton = automaton;
+    	}
+    	
+    	public void run()
+    	{
+        	buildButton.setEnabled(false);    		
+    		runButton.setEnabled(false);
+    		try
+    		{
+	    		JFrame animationFrame = new JFrame();
+	    		animationFrame.addWindowListener(new WindowAdapter()
+	    		{
+	    			@Override
+	    			public void windowClosing(WindowEvent e)
+	    			{
+	    				String consoleText = consoleTextArea.getText();
+	    				if(consoleText.contains("ACCEPTED") == false && consoleText.contains("REJECTED") == false)
+	    					consoleTextArea.setText("Closed before a decision could be made");
+	    				buildButton.setEnabled(true);    		
+	    	    		runButton.setEnabled(true);
+	    			}
+	    		});
+	    		
+	    		consoleTextArea.setText("Testing the input " + input + "... ");
+	        	if(tmMode.isSelected() && automaton != null && automaton instanceof TM)
+	        	{
+	        		TM tm = (TM)automaton;
+	        		Tape tape = new Tape(tm.B);
+	        		tape.load(input);
+	        		automatons.State current = tm.q;
+	        		
+	        		TapePanel tapePanel = new TapePanel(-1, tm);
+	        		animationFrame.add(tapePanel);
+	        		animationFrame.pack();
+	        		Dimension d = jScrollPane1.getSize();
+	        		animationFrame.setSize(d.width + 11, d.height + 11);
+	        		animationFrame.setLocationRelativeTo(jScrollPane1);
+	        		animationFrame.setVisible(true);
+	        		
+	        		while(tm.F.contains(current) == false && current != TM.REJECT)
+	        		{
+	        			tapePanel.setState(current);
+	        			tapePanel.setTape(tape);
+	        			animationFrame.repaint();
+	        			try {
+							Thread.sleep(tapePanel.getDelay());
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+	        			current = tm.δ(current, tape);
+	        		}
+	        		
+	        		if(current != TM.REJECT)
+	        		{
+		    			consoleTextArea.append("ACCEPTED");
+		    			tapePanel.accept(true);
+	        		}
+		    		else
+		    		{
+		    			consoleTextArea.append("REJECTED");
+		    			tapePanel.accept(false);
+		    		}
+	        	}
+    		}
+    		catch(Throwable th)
+    		{
+    			th.printStackTrace();
+    			if(th != null)
+    				consoleTextArea.setText(th.getMessage());
+    		}
+    		finally
+    		{
+//    			buildButton.setEnabled(true);    		
+//	    		runButton.setEnabled(true);
+    		}
+    	}
+    }
 
     private void runButtonActionPerformed(java.awt.event.ActionEvent evt)
-    {
+    {    	
     	try
     	{
 	    	if(inputStringButton.isSelected())
 	    	{
-	    		String input = inputStringField.getText();
+	    		input = inputStringField.getText();
 	    		for(int i = 0; i < input.length(); i++)
 	    			if(automaton.Σ.contains(input.charAt(i)) == false)
 	    				throw new Error("Unrecognized input character at '" + input.charAt(i) + "'.");
 	    		
-	    		if(automaton.test(input))
-	    			consoleTextArea.setText("ACCEPTED");
-	    		else
-	    			consoleTextArea.setText("REJECTED");
+	    		Thread runThread = new RunThread(automaton);
+	    		runThread.start();
 	    	}
 	    	else if(kInputButton.isSelected())
 	    		(new EnumeratorThread()).start();
@@ -376,9 +466,9 @@ public class GUI extends javax.swing.JFrame {
     	}
     	
     	public void run()
-    	{
+    	{    		
     		try
-    		{
+    		{		
 	    		buildButton.setEnabled(false);    		
 	    		runButton.setEnabled(false);
 	    		
@@ -520,9 +610,10 @@ public class GUI extends javax.swing.JFrame {
     private Automaton automaton = null;
     
     private void buildButtonActionPerformed(java.awt.event.ActionEvent evt)
-    {                                            
+    {
         try
         {
+        	consoleTextArea.setText("Building your Automaton...\n");
 	    	String input = inputTextArea.getText();
 	    	Parser parser = new Parser(input);
 	    	if(dfaMode.isSelected())
@@ -534,10 +625,11 @@ public class GUI extends javax.swing.JFrame {
 	    	else if(pdaMode.isSelected())
 	    		automaton = parser.parsePDA();
 	    	runButton.setEnabled(true);
+	    	consoleTextArea.append("Congratulations, your Automaton has been successfully constructed");
         }
         catch(Error error)
         {
-        	consoleTextArea.setText(error.getLocalizedMessage());
+        	consoleTextArea.append(error.getLocalizedMessage());
         }
     }
     

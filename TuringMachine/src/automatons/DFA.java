@@ -6,7 +6,7 @@ import java.util.Set;
 
 public class DFA extends Automaton
 {
-	private HashMap<State, HashMap<Character, State>> transitionMap;
+	public HashMap<State, HashMap<Character, State>> transitionMap;
 	
 	public DFA(Set<State> Q, Set<Character> Σ, LinkedList<Pair<Pair<State, Character>, State>> transitions, State q, Set<State> F)
 	{
