@@ -158,18 +158,18 @@ public class GUI extends javax.swing.JFrame {
         evenPalindromes.setText("Even Binary Palindromes");
         evenPalindromes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputTextArea.setText("        Q := { A, B, C, D };\r\n" + 
-                		"        Σ := { 0, 1 };\r\n" + 
-                		"        Γ := { 0, 1, $ };\r\n" + 
-                		"        δ :=	(A, EPSILON, EPSILON) = (B, $),\r\n" + 
-                		"        	(B, EPSILON, EPSILON) = (C, EPSILON),\r\n" + 
-                		"        	(B, 0, EPSILON) = (B, 0),\r\n" + 
-                		"        	(B, 1, EPSILON) = (B, 1),\r\n" + 
-                		"        	(C, 0, 0) = (C, EPSILON),\r\n" + 
-                		"        	(C, 1, 1) = (C, EPSILON),\r\n" + 
-                		"        	(C, EPSILON, $) = (D, EPSILON);\r\n" + 
-                		"        q := A;\r\n" + 
-                		"        F := { D };");
+                inputTextArea.setText("Q := { A, B, C, D };\r\n" + 
+                		"Σ := { 0, 1 };\r\n" + 
+                		"Γ := { 0, 1, $ };\r\n" + 
+                		"δ :=	(A, EPSILON, EPSILON) = (B, $),\r\n" + 
+                		"		(B, EPSILON, EPSILON) = (C, EPSILON),\r\n" + 
+                		"		(B, 0, EPSILON) = (B, 0),\r\n" + 
+                		"		(B, 1, EPSILON) = (B, 1),\r\n" + 
+                		"		(C, 0, 0) = (C, EPSILON),\r\n" + 
+                		"		(C, 1, 1) = (C, EPSILON),\r\n" + 
+                		"		(C, EPSILON, $) = (D, EPSILON);\r\n" + 
+                		"q := A;\r\n" + 
+                		"F := { D };");
                 nfaMode.setSelected(false);
                 tmMode.setSelected(false);
             	dfaMode.setSelected(false);
@@ -224,7 +224,7 @@ public class GUI extends javax.swing.JFrame {
                 dfaMode.setSelected(false);
                 nfaMode.setSelected(false);
             	tmMode.setSelected(true);
-            	setTitle("Automaton Interpreter, Mode = TM");
+            	setTitle("Automata Interpreter, Mode = TM");
         	}
         });
         tmPresets.add(item);
@@ -259,7 +259,7 @@ public class GUI extends javax.swing.JFrame {
                 nfaMode.setSelected(false);
             	tmMode.setSelected(true);
             	pdaMode.setSelected(false);
-            	setTitle("Automaton Interpreter, Mode = TM");
+            	setTitle("Automata Interpreter, Mode = TM");
         	}
         });
         tmPresets.add(item);
@@ -641,7 +641,7 @@ public class GUI extends javax.swing.JFrame {
         nfaMode.setSelected(false);
     	tmMode.setSelected(true);
     	pdaMode.setSelected(false);
-    	setTitle("Automaton Interpreter, Mode = TM");
+    	setTitle("Automata Interpreter, Mode = TM");
     }                                  
 
     private void menu0n1nActionPerformed(java.awt.event.ActionEvent evt) {                                         
@@ -702,7 +702,7 @@ public class GUI extends javax.swing.JFrame {
         tmMode.setSelected(false);
     	dfaMode.setSelected(true);
     	pdaMode.setSelected(false);
-    	setTitle("Automaton Interpreter, Mode = DFA");
+    	setTitle("Automata Interpreter, Mode = DFA");
     }
 
 
