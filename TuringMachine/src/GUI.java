@@ -30,7 +30,7 @@ public class GUI extends javax.swing.JFrame {
      * Creates new form GUI
      */
     public GUI() {
-    	setTitle("Automaton Compiler, Mode = DFA");
+    	setTitle("Automata Interpreter, Mode = DFA");
         initComponents();
     }
     
@@ -335,7 +335,7 @@ public class GUI extends javax.swing.JFrame {
         tmMode.setSelected(false);
     	dfaMode.setSelected(true);
     	pdaMode.setSelected(false);
-    	setTitle("Automaton Compiler, Mode = DFA");
+    	setTitle("Automata Interpreter, Mode = DFA");
     }
     
     private void pdaModeActionPerformed(java.awt.event.ActionEvent evt) {                                        
@@ -344,7 +344,7 @@ public class GUI extends javax.swing.JFrame {
         tmMode.setSelected(false);
     	dfaMode.setSelected(false);
     	pdaMode.setSelected(true);
-    	setTitle("Automaton Compiler, Mode = PDA");
+    	setTitle("Automata Interpreter, Mode = PDA");
     }
     
     private String input;
@@ -540,7 +540,7 @@ public class GUI extends javax.swing.JFrame {
         dfaMode.setSelected(false);
         tmMode.setSelected(false);
     	pdaMode.setSelected(false);
-    	setTitle("Automaton Compiler, Mode = NFA");
+    	setTitle("Automata Interpreter, Mode = NFA");
     }                                       
 
     private void tmModeActionPerformed(java.awt.event.ActionEvent evt) {                                       
@@ -549,7 +549,7 @@ public class GUI extends javax.swing.JFrame {
         nfaMode.setSelected(false);
     	tmMode.setSelected(true);
     	pdaMode.setSelected(false);
-    	setTitle("Automaton Compiler, Mode = TM");
+    	setTitle("Automata Interpreter, Mode = TM");
     }             
 
     private void wwActionPerformed(java.awt.event.ActionEvent evt)
