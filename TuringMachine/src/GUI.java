@@ -224,7 +224,7 @@ public class GUI extends javax.swing.JFrame {
                 dfaMode.setSelected(false);
                 nfaMode.setSelected(false);
             	tmMode.setSelected(true);
-            	setTitle("Automaton Compiler, Mode = TM");
+            	setTitle("Automaton Interpreter, Mode = TM");
         	}
         });
         tmPresets.add(item);
@@ -259,7 +259,7 @@ public class GUI extends javax.swing.JFrame {
                 nfaMode.setSelected(false);
             	tmMode.setSelected(true);
             	pdaMode.setSelected(false);
-            	setTitle("Automaton Compiler, Mode = TM");
+            	setTitle("Automaton Interpreter, Mode = TM");
         	}
         });
         tmPresets.add(item);
@@ -641,7 +641,7 @@ public class GUI extends javax.swing.JFrame {
         nfaMode.setSelected(false);
     	tmMode.setSelected(true);
     	pdaMode.setSelected(false);
-    	setTitle("Automaton Compiler, Mode = TM");
+    	setTitle("Automaton Interpreter, Mode = TM");
     }                                  
 
     private void menu0n1nActionPerformed(java.awt.event.ActionEvent evt) {                                         
@@ -702,7 +702,7 @@ public class GUI extends javax.swing.JFrame {
         tmMode.setSelected(false);
     	dfaMode.setSelected(true);
     	pdaMode.setSelected(false);
-    	setTitle("Automaton Compiler, Mode = DFA");
+    	setTitle("Automaton Interpreter, Mode = DFA");
     }
 
 
