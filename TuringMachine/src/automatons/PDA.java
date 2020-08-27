@@ -149,26 +149,26 @@ public class PDA extends Automaton
 		Set<Pair<State, Stack<Character>>> current = new HashSet<Pair<State, Stack<Character>>>();
 		current.add(new Pair<State, Stack<Character>>(q, new Stack<Character>()));
 		
-		System.out.println("δ(current, '" + ' ' + "')");
-		for(Pair<State, Stack<Character>> state : current)
-			System.out.println("\t" + state.first + " - " + state.second);
+//		System.out.println("δ(current, '" + ' ' + "')");
+//		for(Pair<State, Stack<Character>> state : current)
+//			System.out.println("\t" + state.first + " - " + state.second);
 		current.addAll(E(current));
-		System.out.println("E(current)");
-		for(Pair<State, Stack<Character>> state : current)
-			System.out.println("\t" + state.first + " - " + state.second);
-		System.out.println();
+//		System.out.println("E(current)");
+//		for(Pair<State, Stack<Character>> state : current)
+//			System.out.println("\t" + state.first + " - " + state.second);
+//		System.out.println();
 		
 		for(int i = 0; i < input.length(); i++)
 		{
 			current = δ(current, input.charAt(i));
-			System.out.println("δ(current, '" + input.charAt(i) + "')");
-			for(Pair<State, Stack<Character>> state : current)
-				System.out.println("\t" + state.first + " - " + state.second);
+//			System.out.println("δ(current, '" + input.charAt(i) + "')");
+//			for(Pair<State, Stack<Character>> state : current)
+//				System.out.println("\t" + state.first + " - " + state.second);
 			current = E(current);
-			System.out.println("E(current)");
-			for(Pair<State, Stack<Character>> state : current)
-				System.out.println("\t" + state.first + " - " + state.second);
-			System.out.println();
+//			System.out.println("E(current)");
+//			for(Pair<State, Stack<Character>> state : current)
+//				System.out.println("\t" + state.first + " - " + state.second);
+//			System.out.println();
 		}
 		
 		return accept(current);

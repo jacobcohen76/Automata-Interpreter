@@ -58,6 +58,7 @@ public class GUI extends javax.swing.JFrame {
         oddNum1s = new javax.swing.JMenuItem();
         nfaPresets = new javax.swing.JMenu();
         tmPresets = new javax.swing.JMenu();
+        pdaPresets = new javax.swing.JMenu();
         ww = new javax.swing.JMenuItem();
         menu0n1n = new javax.swing.JMenuItem();
         modeMenu = new javax.swing.JMenu();
@@ -141,6 +142,42 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         loadMenu.add(nfaPresets);
+        
+        pdaPresets.setText("PDA Presets");
+        loadMenu.add(pdaPresets);
+
+        menu0n1n.setText("0^n1^n");
+        menu0n1n.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu0n1nActionPerformed(evt);
+            }
+        });
+        pdaPresets.add(menu0n1n);
+        
+        javax.swing.JMenuItem evenPalindromes = new javax.swing.JMenuItem();
+        evenPalindromes.setText("Even Binary Palindromes");
+        evenPalindromes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputTextArea.setText("        Q := { A, B, C, D };\r\n" + 
+                		"        Σ := { 0, 1 };\r\n" + 
+                		"        Γ := { 0, 1, $ };\r\n" + 
+                		"        δ :=	(A, EPSILON, EPSILON) = (B, $),\r\n" + 
+                		"        	(B, EPSILON, EPSILON) = (C, EPSILON),\r\n" + 
+                		"        	(B, 0, EPSILON) = (B, 0),\r\n" + 
+                		"        	(B, 1, EPSILON) = (B, 1),\r\n" + 
+                		"        	(C, 0, 0) = (C, EPSILON),\r\n" + 
+                		"        	(C, 1, 1) = (C, EPSILON),\r\n" + 
+                		"        	(C, EPSILON, $) = (D, EPSILON);\r\n" + 
+                		"        q := A;\r\n" + 
+                		"        F := { D };");
+                nfaMode.setSelected(false);
+                tmMode.setSelected(false);
+            	dfaMode.setSelected(false);
+            	pdaMode.setSelected(true);
+            	setTitle("Automata Interpreter, Mode = PDA");
+            }
+        });
+        pdaPresets.add(evenPalindromes);
 
         tmPresets.setText("TM Presets");
         tmPresets.addActionListener(new java.awt.event.ActionListener() {
@@ -156,14 +193,6 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         tmPresets.add(ww);
-
-        menu0n1n.setText("0^n1^n");
-        menu0n1n.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menu0n1nActionPerformed(evt);
-            }
-        });
-        tmPresets.add(menu0n1n);
         
         JMenuItem item = new JMenuItem("a^nb^nc^n");
         item.addActionListener(new java.awt.event.ActionListener() {
@@ -229,6 +258,7 @@ public class GUI extends javax.swing.JFrame {
                 dfaMode.setSelected(false);
                 nfaMode.setSelected(false);
             	tmMode.setSelected(true);
+            	pdaMode.setSelected(false);
             	setTitle("Automaton Compiler, Mode = TM");
         	}
         });
@@ -418,6 +448,17 @@ public class GUI extends javax.swing.JFrame {
 		    			tapePanel.accept(false);
 		    		}
 	        	}
+	        	else
+	        	{
+	        		if(automaton.test(input))
+	        		{
+		    			consoleTextArea.append("ACCEPTED");
+	        		}
+	        		else
+	        		{
+		    			consoleTextArea.append("REJECTED");
+	        		}	
+	        	}
     		}
     		catch(Throwable th)
     		{
@@ -427,8 +468,8 @@ public class GUI extends javax.swing.JFrame {
     		}
     		finally
     		{
-//    			buildButton.setEnabled(true);    		
-//	    		runButton.setEnabled(true);
+    			buildButton.setEnabled(true);    		
+	    		runButton.setEnabled(true);
     		}
     	}
     }
@@ -599,11 +640,27 @@ public class GUI extends javax.swing.JFrame {
         dfaMode.setSelected(false);
         nfaMode.setSelected(false);
     	tmMode.setSelected(true);
+    	pdaMode.setSelected(false);
     	setTitle("Automaton Compiler, Mode = TM");
     }                                  
 
     private void menu0n1nActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
+        inputTextArea.setText("Q := { A, B, C, D };\r\n" + 
+        		"Σ := { 0, 1 };\r\n" + 
+        		"Γ := { 0, 1, $ };\r\n" + 
+        		"δ :=	(A, EPSILON, EPSILON) = (B, $),\r\n" + 
+        		"	(B, EPSILON, EPSILON) = (C, EPSILON),\r\n" + 
+        		"	(B, 0, EPSILON) = (B, 0),\r\n" + 
+        		"	(C, 1, 0) = (C, EPSILON),\r\n" + 
+        		"	(C, EPSILON, $) = (D, EPSILON);\r\n" + 
+        		"q := A;\r\n" + 
+        		"F := { D };");
+        nfaMode.setSelected(false);
+        tmMode.setSelected(false);
+    	dfaMode.setSelected(false);
+    	pdaMode.setSelected(true);
+    	setTitle("Automata Interpreter, Mode = PDA");
     	
     }                                        
     
@@ -644,6 +701,7 @@ public class GUI extends javax.swing.JFrame {
         nfaMode.setSelected(false);
         tmMode.setSelected(false);
     	dfaMode.setSelected(true);
+    	pdaMode.setSelected(false);
     	setTitle("Automaton Compiler, Mode = DFA");
     }
 
@@ -706,6 +764,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JRadioButtonMenuItem tmMode;
     private javax.swing.JRadioButtonMenuItem pdaMode;
     private javax.swing.JMenu tmPresets;
+    private javax.swing.JMenu pdaPresets;
     private javax.swing.JMenuItem ww;
     // End of variables declaration                  
 }
